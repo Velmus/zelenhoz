@@ -1,0 +1,223 @@
+:root{
+  --palm:   #657F38;
+  --leaf:   #9EAB57;
+  --shadow: #212C1B;
+  --terra:  #D57640;
+  --cream:  #FCE0C0;
+
+  --green-deep: var(--palm);
+  --green-soft: var(--leaf);
+
+  --bs-primary: var(--palm);
+  --bs-success: var(--leaf);
+  --bs-dark:    var(--shadow);
+  --bs-warning: var(--terra);
+  --bs-light:   var(--cream);
+}
+
+body{
+  background: linear-gradient(180deg, #f5fbf6 0%, #eef7ef 60%, #ffffff 100%);
+  color:#0f172a;
+  padding-top: 0;
+}
+
+/* Header */
+.navbar{ background: var(--green-deep) !important; box-shadow: 0 2px 12px rgba(30,75,38,.08); }
+.navbar .nav-link{ color:#fff !important; font-weight:700; }
+.navbar .nav-link:hover{ color:#e6f3ea !important; }
+
+/* Hero */
+.hero-carousel .carousel-item{ max-height:66vh; position:relative; }
+.hero-carousel .carousel-item img{ height:66vh; width:100%; object-fit:cover; transform:scale(1); transition: transform 8s ease;  position:relative; z-index:0; }
+.hero-carousel .carousel-item.active img{ transform:scale(1.05); }
+.hero-carousel .carousel-item::after{ content:none !important; background:none !important; pointer-events:none; position:absolute; inset:0; z-index:0; }
+.hero-title{ font-weight:700; color:#fff; text-shadow:0 2px 0 rgba(30,75,38,.9), 0 4px 12px rgba(0,0,0,.25); }
+.hero-sub{ color:#f5fff7; text-shadow:0 1px 0 rgba(30,75,38,.9); }
+.carousel-indicators [data-bs-target]{ background-color: var(--leaf); }
+
+.section-title{  padding-left:.75rem; }
+
+/* Stores */
+.store-card img{ aspect-ratio:16/9; object-fit:cover; border-top-left-radius:1rem; border-top-right-radius:1rem; }
+.card{ border-radius:1rem; }
+
+/* Catalog slider */
+.catalog-slider{ position:relative; overflow:hidden; }
+.catalog-slider .slider-track{ display:flex; gap:1rem; transition: transform 400ms ease; will-change: transform; }
+.catalog-slider .slider-item{ flex:0 0 auto; }
+@media (min-width: 992px){ .catalog-slider .slider-item{ width: calc((100% - 2rem)/3); } }
+@media (min-width: 576px) and (max-width: 991.98px){ .catalog-slider .slider-item{ width: calc((100% - 1rem)/2); } }
+@media (max-width: 575.98px){ .catalog-slider .slider-item{ width: 100%; } }
+
+.catalog-controls{ display:flex; justify-content: center; gap:.5rem; margin-bottom:.5rem; 
+  margin-top: 0.75rem;
+}
+.catalog-controls .btn{ border-radius:999px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; padding:0; }
+
+/* Catalog equal heights + labels + hover zoom */
+.plant-card{ position: relative; display:flex; flex-direction:column; height:100%; overflow: hidden; }
+.plant-card img{ aspect-ratio: 4/3; object-fit:cover; transition: transform .6s ease; }
+.plant-card:hover img{ transform: scale(1.03); }
+.plant-card .card-body{ flex:1 1 auto; display:flex; flex-direction:column; justify-content:space-between; }
+
+.plant-card .badge-wrap{
+  position: absolute; top: .5rem; left: .5rem; display:flex; gap:.35rem; flex-wrap:wrap; z-index:2;
+}
+.plant-card .badge-chip{
+  backdrop-filter: blur(6px);
+  background: rgba(33,44,27,.65);
+  color:#fff; border-radius:999px; padding:.2rem .6rem; font-size:.75rem; line-height:1;
+  display:inline-flex; align-items:center; gap:.25rem;
+}
+.plant-card .badge-chip i{ font-size:.85rem; opacity:.9; }
+
+/* Buttons & links */
+.btn-primary{
+  --bs-btn-bg: var(--green-deep); --bs-btn-border-color: var(--green-deep);
+  --bs-btn-hover-bg: #183d20; --bs-btn-hover-border-color: #183d20;
+  --bs-btn-active-bg: #13341a; --bs-btn-active-border-color: #13341a;
+}
+.btn-outline-primary{
+  --bs-btn-color: var(--green-deep); --bs-btn-border-color: var(--green-deep);
+  --bs-btn-hover-bg: var(--green-deep); --bs-btn-hover-border-color: var(--green-deep);
+}
+a{ color: var(--green-deep); text-decoration-color: rgba(30,75,38,.35); }
+a:hover{ color: var(--green-soft); text-decoration-color: rgba(143,156,104,.6); }
+
+/* Catalog image holder for stable zoom */
+.plant-image-holder {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.plant-image-holder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+.plant-card:hover .plant-image-holder img {
+  transform: scale(1.03);
+}
+
+
+/* --- FIX: overlay only on background image, keep text crisp --- */
+.promo, .hero, section.promo, section.hero {
+  position: relative;
+}
+.promo .overlay, .hero .overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.promo .promo-content, .hero .promo-content {
+  position: relative;
+  z-index: 1;
+}
+.promo::before, .hero::before {
+  /* if pseudo used elsewhere, this keeps it behind content */
+  z-index: 0;
+}
+/* Avoid opacity on the whole promo container */
+.promo, .hero {
+  opacity: 1 !important;
+  filter: none !important;
+}
+/* --- END FIX --- */
+
+
+/* --- FIX: Darken only the carousel image, not the text --- */
+.carousel-item { position: relative; }
+.carousel-item img { display:block; width:100%; height:auto; filter: brightness(0.6); }
+.carousel-caption{ position:absolute; z-index:2; color:#fff; }
+.carousel-item .promo-content{ position:relative; z-index:2; }
+/* --- END FIX --- */
+
+
+
+
+
+
+
+
+/* --- Section title icon styling (Bootstrap Icons) --- */
+.section-title{
+  border-left: none !important;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.section-title .bi{
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--palm); /* unified icon color */
+}
+
+#about .section-title .bi{ display:none; }
+ /* no icon for About */
+
+/* --- END Section title icon styling --- */
+
+
+/* --- Contacts section styling --- */
+#contacts {
+  background: linear-gradient(to bottom, #f5faf5 0%, #edf5ed 100%);
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.03) inset;
+}
+#contacts .section-title {
+  color: var(--palm);
+}
+/* --- END Contacts section styling --- */
+
+
+/* --- Plant Finder (mini-quiz) --- */
+#finder .btn-outline-primary{ border-color: var(--palm); color: var(--palm); }
+#finder .btn-outline-primary:hover, 
+#finder .btn-check:checked + .btn{ background-color: var(--palm); color:#fff; border-color: var(--palm); }
+#finder .card{ border: 1px solid rgba(0,0,0,.075); }
+/* --- Catalog badges --- */
+.badges .badge{ font-weight: 600; }
+.text-bg-success{ background-color: var(--leaf) !important; }
+.text-bg-secondary{ background-color: #e7efe8 !important; color: var(--shadow) !important; }
+
+
+/* --- Contact brand icons (header & footer) --- */
+.contact-icons .contact-link { display:inline-flex; align-items:center; justify-content:center; width:2.25rem; height:2.25rem; border-radius:50%; transition:transform .2s ease, background-color .2s ease, color .2s ease; color: var(--palm); background: #f4faf4; }
+.contact-icons .contact-link:hover { transform: translateY(-1px) scale(1.05); background: #e8f3e8; }
+.contact-icons .contact-link .brand-ico { width:1.35rem; height:1.35rem; display:block; }
+
+/* Brand-specific subtle colors on hover */
+.contact-icons .contact-link.tg:hover { color:#229ED9; }
+.contact-icons .contact-link.wa:hover { color:#25D366; }
+.contact-icons .contact-link.tel:hover { color: var(--leaf); }
+
+
+/* --- Sticky footer layout --- */
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; }
+main, #main { flex: 1 0 auto; }
+footer { flex-shrink: 0; }
+/* --- END sticky footer --- */
+
+
+
+
+/* --- Inner pages spacing (navbar fixed offset on container) --- */
+:root{ --nav-offset: 88px; } /* adjust if navbar height changes */
+body.page #main .container{ padding-top: calc(var(--nav-offset) + 1.5rem); padding-bottom: 3rem; }
+@media (max-width: 991.98px){
+  :root{ --nav-offset: 64px; }
+}
+/* --- End inner pages spacing --- */
+
+
+/* --- Price page elements --- */
+.divider{ height:1px; background: rgba(0,0,0,.08); }
+.price-links a.highlight3{ color: var(--palm); text-decoration: none; }
+.price-links a.highlight3:hover{ text-decoration: underline; }
+/* --- End price page elements --- */
