@@ -1,0 +1,104 @@
+
+/* Сама таблица */
+.price-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 1.4;
+  background: #fff;
+}
+
+/* Шапка */
+.price-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-align: left;
+  background: linear-gradient(0deg, #e7f5ea, #e7f5ea) padding-box,
+              linear-gradient(90deg, #36b37e, #68c07a) border-box;
+  border-bottom: 1px solid #cfe7d6;
+  padding: 12px 14px;
+  font-weight: 600;
+  color: #0b3d2a;
+  white-space: nowrap;
+}
+
+/* Ячейки */
+.price-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  vertical-align: top;
+  color: #1f2d26;
+  background: #fff;
+  /* Длинные названия переносятся, но не ломают макет */
+  overflow-wrap: anywhere;
+}
+
+/* Зебра и ховер */
+.price-table tbody tr:nth-child(odd) td {
+  background: #fbfdfa;
+}
+.price-table tbody tr:hover td {
+  background: #f1fbf4;
+}
+
+/* Суженные и числовые колонки (если можешь добавить атрибуты) */
+.price-table td[data-type="number"],
+.price-table th[data-type="number"] {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Частые кейсы: последняя колонка — цена */
+.price-table td:last-child,
+.price-table th:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Первая колонка — название */
+.price-table td:first-child,
+.price-table th:first-child {
+  min-width: 16rem; /* чуть больше места под наименование */
+}
+
+/* Края таблицы закругляем через псевдо-границы */
+.price-table thead th:first-child { border-top-left-radius: 12px; }
+.price-table thead th:last-child  { border-top-right-radius: 12px; }
+.price-table tbody tr:last-child td:first-child { border-bottom-left-radius: 12px; }
+.price-table tbody tr:last-child td:last-child  { border-bottom-right-radius: 12px; }
+
+/* Малые экраны — просто скролл (без ломки структуры) */
+@media (max-width: 640px) {
+  .price-table thead th {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .price-table td {
+    padding: 10px 12px;
+  }
+}
+
+/* Тёмная тема по системным настройкам */
+@media (prefers-color-scheme: dark) {
+  .table-wrapper {
+    border-color: rgba(255,255,255,.12);
+    box-shadow: 0 1px 6px rgba(0,0,0,.4);
+  }
+  .price-table { background: #0f1512; }
+  .price-table thead th {
+    color: #d2ffe3;
+    background: linear-gradient(0deg, #0f2a1f, #0f2a1f) padding-box,
+                linear-gradient(90deg, #2bb673, #4fc479) border-box;
+    border-bottom-color: rgba(255,255,255,.12);
+  }
+  .price-table td {
+    color: #e6f7ee;
+    border-bottom-color: rgba(255,255,255,.08);
+    background: #0f1512;
+  }
+  .price-table tbody tr:nth-child(odd) td { background: #101a15; }
+  .price-table tbody tr:hover td          { background: #0f251b; }
+}

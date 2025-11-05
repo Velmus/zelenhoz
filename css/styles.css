@@ -221,3 +221,175 @@ body.page #main .container{ padding-top: calc(var(--nav-offset) + 1.5rem); paddi
 .price-links a.highlight3{ color: var(--palm); text-decoration: none; }
 .price-links a.highlight3:hover{ text-decoration: underline; }
 /* --- End price page elements --- */
+
+
+/* Обёртка для горизонтального скролла на узких экранах */
+.table-wrapper {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  margin: 16px 0;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.05);
+}
+
+
+/* Палитра Зеленхоза (настраиваемые CSS-переменные) */
+.modal--zelenhoz {
+  --zh-green: #2ea66a;
+  --zh-green-2: #36b37e;
+  --zh-bg: #ffffff;
+  --zh-text: #0f2a20;
+  --zh-muted: #5b6b63;
+  --zh-border: #e6f3ea;
+  --zh-shadow: 0 12px 40px rgba(0,0,0,.18);
+}
+
+/* Тёмная тема */
+@media (prefers-color-scheme: dark) {
+  .modal--zelenhoz {
+    --zh-bg: #0f1512;
+    --zh-text: #e6f7ee;
+    --zh-muted: #a8cbb8;
+    --zh-border: #1e2a24;
+    --zh-shadow: 0 12px 40px rgba(0,0,0,.6);
+  }
+}
+
+/* Контейнер модалки */
+.modal--zelenhoz .modal-dialog {
+  max-width: min(960px, 92vw);
+}
+
+.modal--zelenhoz .modal-content {
+  border: 1px solid var(--zh-border);
+  border-radius: 18px;
+  background: var(--zh-bg);
+  color: var(--zh-text);
+  box-shadow: var(--zh-shadow);
+  overflow: hidden;
+}
+
+/* Шапка: тонкая нижняя граница + фирменный акцент в заголовке */
+.modal--zelenhoz .modal-header {
+  border-bottom: 1px solid var(--zh-border);
+  padding: 16px 18px;
+}
+.modal--zelenhoz .modal-title {
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.modal--zelenhoz .modal-title::after {
+  content: "";
+  display: inline-block;
+  width: 8px; height: 8px;
+  margin-left: 10px;
+  border-radius: 999px;
+  background: radial-gradient(100% 100% at 50% 0%, var(--zh-green-2), var(--zh-green));
+  opacity: .85;
+}
+
+/* Тело: простор и сетка */
+.modal--zelenhoz .modal-body {
+  padding: 18px;
+}
+@media (min-width: 768px) {
+  .modal--zelenhoz .modal-body { padding: 22px; }
+}
+
+/* Картинка: аккуратные углы, тень */
+.modal--zelenhoz #productModalImg {
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.08);
+  background: #f7faf8;
+}
+
+/* Текст описания и цены */
+.modal--zelenhoz #productModalDesc {
+  color: var(--zh-muted);
+  line-height: 1.55;
+}
+.modal--zelenhoz #productModalPrice {
+  margin-top: 12px;
+  font-weight: 800;
+  font-size: clamp(18px, 2.2vw, 22px);
+  color: var(--zh-green);
+}
+
+/* Низ модалки */
+.modal--zelenhoz .modal-footer {
+  border-top: 1px solid var(--zh-border);
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.02));
+  padding: 12px 18px;
+}
+
+/* Кнопки под стили бренда (сохранит совместимость с Bootstrap) */
+.modal--zelenhoz .btn-success {
+  --bs-btn-bg: var(--zh-green);
+  --bs-btn-border-color: var(--zh-green);
+  --bs-btn-hover-bg: var(--zh-green-2);
+  --bs-btn-hover-border-color: var(--zh-green-2);
+  --bs-btn-active-bg: var(--zh-green-2);
+  --bs-btn-active-border-color: var(--zh-green-2);
+  box-shadow: 0 4px 14px rgba(54, 179, 126, .35);
+}
+.modal--zelenhoz .btn-outline-secondary {
+  --bs-btn-border-color: var(--zh-border);
+  --bs-btn-color: var(--zh-text);
+  --bs-btn-hover-bg: rgba(0,0,0,.04);
+  --bs-btn-hover-border-color: var(--zh-border);
+}
+
+/* Крестик – нейтральный, но с hover */
+.modal--zelenhoz .btn-close {
+  filter: invert(18%) sepia(11%) saturate(350%) hue-rotate(100deg) brightness(95%) contrast(92%);
+  opacity: .7;
+}
+.modal--zelenhoz .btn-close:hover { opacity: 1; }
+
+/* Анимация плавного появления (добавляет живости) */
+.modal--zelenhoz .modal-dialog {
+  transform: translateY(8px) scale(.99);
+  transition: transform .18s ease, opacity .18s ease;
+  opacity: 0;
+}
+.modal.show.modal--zelenhoz .modal-dialog {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Мелкие детали типографики */
+.modal--zelenhoz .lead, 
+.modal--zelenhoz p { margin-bottom: .8rem; }
+
+.modal--zelenhoz.modal.fade .modal-backdrop,
+.modal--zelenhoz ~ .modal-backdrop { 
+  /* Bootstrap вставляет backdrop отдельно; этот селектор подхватит его */
+  background-color: rgba(7, 29, 21, .55);
+}
+
+/* === Fix: привязываем модалку к брендовым переменным (ставь в самый низ файла) === */
+.modal--zelenhoz {
+  /* вместо захардкоженных #2ea66a/#36b37e */
+  --zh-green: var(--palm);   /* основной зелёный */
+  --zh-green-2: var(--leaf); /* светлый/hover */
+
+  /* базовые тона модалки — под твою палитру */
+  --zh-bg: var(--cream);     /* тёплый светлый фон */
+  --zh-text: var(--shadow);  /* основной текст */
+  --zh-muted: #5b6b63;       /* можно оставить как есть, выглядит ок с твоей гаммой */
+  --zh-border: #e6f3ea;      /* тонкая светлая граница */
+  --zh-shadow: 0 12px 40px rgba(0,0,0,.18);
+}
+
+/* тёмная тема под твои цвета */
+@media (prefers-color-scheme: dark) {
+  .modal--zelenhoz {
+    --zh-bg: var(--shadow);
+    --zh-text: var(--cream);
+    --zh-muted: #c8d3c4;   /* чуть светлее muted для контраста */
+    --zh-border: rgba(255,255,255,.12);
+    --zh-shadow: 0 12px 40px rgba(0,0,0,.6);
+  }
+}
